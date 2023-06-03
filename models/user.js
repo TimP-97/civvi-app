@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
@@ -14,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
   user.init({
     name: {
       type: DataTypes.STRING,
@@ -45,6 +47,25 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+
+  user.addHook('beforeCreate', (pendingUser) => { // pendingUser is user object that gets passed to DB
+    // Bcrypt is going to hash the password
+    let hash = bcrypt.hashSync(pendingUser.password, 12); // hash 12 times
+    pendingUser.password = hash; // this will go to the DB
+  });
+
+  user.prototype.validPassword = function (typedPassword) {
+    let isCorrectPassword = bcrypt.compareSync(typedPassword, this.password); // check to see if password is correct.
+
+    return isCorrectPassword;
+  }
+
+  user.prototype.toJSON = function () {
+    let userData = this.get();
+    delete userData.password; // it doesn't delete password from database, only removes it. 
+
+    return userData;
+  }
 
   return user; // add functions above 
 };
