@@ -1,5 +1,38 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <title>GoDocs documentation theme</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- plugins -->
+    <link rel="stylesheet" href="/plugins/bulma/bulma.min.css">
+    <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+    <!-- Main Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+
+<div class="box">
 <p>
-<form method=”get” target=”_top” role=”search” action=” https://congress.gov/search”>
+<form method=”get” target=”_top” role=”search” action=”https://congress.gov/search” style="align-items: center;">
     <div id=”search-wrapper” class=”search_wrapper”>
         <div class=”search_formats”><select id=”search-format” name=”search-source”>
                 <optgroup label=”Search by Congress”>
@@ -13,9 +46,21 @@
                     <option value=”members”>Members</option>
                     <option value=”nominations”>Nominations</option>
                 </optgroup>
-            </select><input id=”search” type=”text” class=”locsuggest” name=”q” placeholder=”Examples: hr5, sres9,
-                &quot;health care&quot;” value=””><button class=”search_submit” id=”search-submit”
+            </select><input id=”search” type=”text” class=”locsuggest” name=”q” placeholder=Search><button class=”search_submit” id=”search-submit”
                 type=”submit”>GO</button></div>
     </div>
 </form>
 </p>
+</div>
+<!-- plugins -->
+<script src="plugins/jQuery/jquery.min.js"></script>
+<script src="plugins/masonry/masonry.min.js"></script>
+<script src="plugins/clipboard/clipboard.min.js"></script>
+<script src="plugins/match-height/jquery.matchHeight-min.js"></script>
+
+<!-- Main Script -->
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

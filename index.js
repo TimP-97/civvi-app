@@ -132,6 +132,23 @@ app.get('/search', function (req, res) {
     res.render('search'); 
 })
 
+app.get('/committee', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
+    .then(function (response) {
+        let result = []; 
+        let committees = response.data.committees; 
+        for (let i = 0; i < committees.length; i++) {
+            let eachCommittee = committees[i]; 
+            result.push(eachCommittee); 
+        }
+        console.log(result); 
+        return res.render('committee', { committees: result }); 
+    })
+    .catch(function (error) {
+        res.json({message: 'Data not found. Please try again later'}); 
+    })
+})
+
 
 
 
