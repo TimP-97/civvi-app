@@ -58,8 +58,9 @@
                <a class="navbar-item" href="/search">Search Page</a>
             </div>
 
-            <div class="navbar-end ml-0">
+            <div class="navbar-links ml-0">
                <div class="navbar-item py-0">
+                     <ul>
                      <% if (!currentUser) {%>
                      <li><a href="/auth/signup">Signup</a></li>
                      <li><a href="/auth/login">Login</a></li>
@@ -67,6 +68,7 @@
                      <li><a href="/auth/logout">Logout</a></li>
                      <li><a href="/profile">Profile</a></li>
                      <% } %>
+                     </ul>
                </div>
             </div>
          </div>

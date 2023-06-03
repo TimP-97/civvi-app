@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 app.get('/', function (req, res) {
     axios.get('https://api.congress.gov/v3/bill?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
         .then(function (response) {
-            // handle success
+            console.log('Bill Data:')
             return res.render('index', { bills: response.data });
         })
         .catch(function (error) {
@@ -127,6 +127,10 @@ app.get('/bills/118/:billtype/:billnumber/actions', function (req, res) {
             res.json({ message: 'Data not found. Please try again later.' });
         });
 });
+
+app.get('/search', function (req, res) {
+    res.render('search'); 
+})
 
 
 
