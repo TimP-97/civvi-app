@@ -1,3 +1,4 @@
+//Declaring global variables and dependencies
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
@@ -8,7 +9,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/ppConfig'); 
 const isLoggedIn = require('./middleware/isLoggedIn'); 
-let billType; 
+let billType;
 let billNumber; 
 let amendments; 
 let actions; 
@@ -18,6 +19,7 @@ console.log('Secret session', SECRET_SESSION);
 
 
 
+//tying dependencies to server
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: false }));
@@ -41,10 +43,10 @@ app.use((req, res, next) => {
     next(); 
 })
 
+//home route
 app.get('/', function (req, res) {
     axios.get('https://api.congress.gov/v3/bill?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
         .then(function (response) {
-            console.log('Bill Data:')
             return res.render('index', { bills: response.data });
         })
         .catch(function (error) {
@@ -148,6 +150,33 @@ app.get('/committee', function (req, res) {
         res.json({message: 'Data not found. Please try again later'}); 
     })
 })
+
+app.get('/committee/:systemCode', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
+        .then(function (response) {
+            console.log('Response----->', response.data.committees); 
+            console.log('Reqeust --->', req.params.systemCode);
+
+            // handle success
+            let found = false;
+            let committees = response.data.committees; 
+            for (let i in committees) {
+                let committee = committees[i];
+                console.log('committee ----->', committee.systemCode); 
+
+                if (committee.systemCode === req.params.systemCode) {
+                    found = true;
+                    return res.render('single-committee', { singleCommittee: committee, committees: response.data.committees });
+                }
+            }
+            if (!found) {
+                res.render( 'no-result', { data: 'Committee does not exist.' });
+            }
+        })
+        .catch(function (error) {
+            res.json({ message: 'Data not found. Please try again later.' });
+        });
+});
 
 
 
