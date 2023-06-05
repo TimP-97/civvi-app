@@ -4,18 +4,20 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 const ejsLayouts = require('express-ejs-layouts');
-const methodOverride = require('method-override'); 
+const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
-const passport = require('./config/ppConfig'); 
-const isLoggedIn = require('./middleware/isLoggedIn'); 
+const passport = require('./config/ppConfig');
+const isLoggedIn = require('./middleware/isLoggedIn');
 let billType;
-let billNumber; 
-let amendments; 
-let actions; 
+let billNumber;
+let amendments;
+let actions;
 
 SECRET_SESSION = process.env.SECRET_SESSION;
-console.log('Secret session', SECRET_SESSION); 
+API_KEY = process.env.API_KEY;
+console.log('API Key', API_KEY);
+console.log('Secret session', SECRET_SESSION);
 
 
 
@@ -24,8 +26,8 @@ app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
-app.use(methodOverride('_method')); 
-app.use(flash()); 
+app.use(methodOverride('_method'));
+app.use(flash());
 app.use(session({
     secret: SECRET_SESSION,
     resave: false,
@@ -37,10 +39,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-    console.log(res.locals); 
-    res.locals.alerts = req.flash(); 
-    res.locals.currentUser = req.user; 
-    next(); 
+    // console.log(res.locals); 
+    res.locals.alerts = req.flash();
+    res.locals.currentUser = req.user;
+    next();
 })
 
 //home route
@@ -131,46 +133,57 @@ app.get('/bills/118/:billtype/:billnumber/actions', function (req, res) {
 });
 
 app.get('/search', function (req, res) {
-    res.render('search'); 
+    res.render('search');
 })
 
 app.get('/committee', function (req, res) {
-    axios.get('https://api.congress.gov/v3/committee?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
-    .then(function (response) {
-        let result = []; 
-        let committees = response.data.committees; 
-        for (let i = 0; i < committees.length; i++) {
-            let eachCommittee = committees[i]; 
-            result.push(eachCommittee); 
-        }
-        console.log(result); 
-        return res.render('committee', { committees: result }); 
-    })
-    .catch(function (error) {
-        res.json({message: 'Data not found. Please try again later'}); 
-    })
+    axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + '&' + API_KEY)
+        .then(function (response) {
+            let result = [];
+            let committees = response.data.committees;
+            for (let i = 0; i < committees.length; i++) {
+                let eachCommittee = committees[i];
+                result.push(eachCommittee);
+            }
+            // console.log(result); 
+            return res.render('committee', { committees: result });
+        })
+        .catch(function (error) {
+            res.json({ message: 'Data not found. Please try again later' });
+        })
 })
 
 app.get('/committee/:systemCode', function (req, res) {
-    axios.get('https://api.congress.gov/v3/committee?api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
-        .then(function (response) {
-            console.log('Response----->', response.data.committees); 
-            console.log('Reqeust --->', req.params.systemCode);
+    axios.get('https://api.congress.gov/v3/committee?format=json&limit=250&api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
+        .then(async function (response) {
+            // console.log('Response----->', response.data.committees); 
+            // console.log('Reqeust --->', req.params.systemCode);
 
             // handle success
             let found = false;
-            let committees = response.data.committees; 
+            let committees = response.data.committees;
             for (let i in committees) {
                 let committee = committees[i];
-                console.log('committee ----->', committee.systemCode); 
+                console.log('committee ----->', committee);
 
                 if (committee.systemCode === req.params.systemCode) {
                     found = true;
-                    return res.render('single-committee', { singleCommittee: committee, committees: response.data.committees });
+                    await axios.get(committee.url + '&' + API_KEY)
+                        .then(async function (singleResponse) {
+                            let newCall = singleResponse.data.committee.communications.url;
+                            console.log('Single Response url ------>', newCall);
+                            await axios.get(newCall + '&' + API_KEY)
+                                .then(function (newSingleResponse) {
+                                    console.log('New Single Response', newSingleResponse.data);
+                                    return res.render('single-committee', { singleCommittee: committee, allCommittees: response.data.committees, singleCommitteeData: newSingleResponse.data });
+                                })
+                            
+                        })
+
                 }
             }
             if (!found) {
-                res.render( 'no-result', { data: 'Committee does not exist.' });
+                res.render('no-result', { data: 'Committee does not exist.' });
             }
         })
         .catch(function (error) {
@@ -178,7 +191,54 @@ app.get('/committee/:systemCode', function (req, res) {
         });
 });
 
+app.get('/test', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house/hsed00?format=json' + API_KEY)
+    .then (function (response) {
+        res.json({ data: response.data}); 
+    })
+    .catch (function (error) {
+        res.json({ error }); 
+    })
+})
 
+app.get('/test1', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house/hsed00/house-communication?format=json' + API_KEY)
+        .then(function (response) {
+            res.json({ data: response.data });
+        })
+        .catch(function (error) {
+            res.json({ error });
+        })
+})
+
+app.get('/test2', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
+        .then(function (response) {
+            res.json({ data: response.data });
+        })
+        .catch(function (error) {
+            res.json({ error });
+        })
+})
+
+app.get('/test3', function (req, res) {
+    // let result = []; 
+    let result; 
+    axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
+        .then(async function (response) {       
+            let committees = response.data.committees;
+            for (let i in committees) {
+                let committee = committees[i];
+                // result.push(committee.chamber, committee.name, committee.systemCode, committee.committeeTypeCode, committee.parent);
+                result = {chamber: committee.chamber, name: committee.name, systemCode: committee.systemCode, committeeTypeCode: committee.committeeTypeCode, parent: committee.parent, url: committee.url}; 
+              
+            }
+            res.json({ data: result}); 
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+})
 
 
 const PORT = process.env.PORT || 3000;
@@ -193,3 +253,5 @@ module.exports = {
     PORT,
     axios
 };
+
+// sequelize model:create --name committee --attributes chamber:string,name:string,systemCode:string,committeeTypeCode:string,bills:string,billsCount:integer,history:array,communications:array,parent:array

@@ -1,11 +1,12 @@
+
 {
   "development": {
-    "database": "express_auth_dev",
+    "database": "civvi",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_auth_test",
+    "database": "civvi",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
