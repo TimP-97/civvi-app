@@ -24,7 +24,7 @@ router.get('/', isLoggedIn, async (req, res) => {
                 })
                     .then(foundCommittee => {
                         const cleaned_committee = foundCommittee.map(c => c.toJSON())
-                        res.render('./favorites/favorite', { userFavorite: cleaned_committee });
+                        return res.render('./favorites/favorite', { userFavorite: cleaned_committee });
                     })
                     .catch(error => { console.log('ERROR', error) })
             } catch (error) {
@@ -62,7 +62,7 @@ router.post('/add', isLoggedIn, async (req, res) => {
         console.error('Error adding committee to favorites:', error);
     }
 
-    res.redirect('/favorites');
+   return res.redirect('/favorites');
 });
 
 

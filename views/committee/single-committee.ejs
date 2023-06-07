@@ -31,7 +31,7 @@
 
 <body>
 
-<div class="column is-full">
+<div class="column is-10 is-offset-1">
     <div class="px-4">
         <h2 class="mb-4 has-text-weight-medium"><%= singleCommittee.name %></h2>
         <div class="content">
@@ -41,12 +41,17 @@
                 <p><%= singleCommittee.chamber %></p>
             </blockquote>
             <div class="mt-5">
-                <div class="badge removed"><%= singleCommittee.committeeTypeCode %></div>
+                <div class="badge removed">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
             </div>
             <div class="card">
                 <div class="card-content">
                     <div class="content">
-                        <p><%= singleCommittee.systemCode %></p>
+                        <% if (!singleCommittee.parent) { %>
+                        <p></p>
+                        <% } else { %>
+                            <p>Parent Committee</p>
+                            <p><strong><%= singleCommittee.parent.name %></strong> | System Code: <%= singleCommittee.parent.systemCode %></p>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -59,7 +64,7 @@
             <% } %>
             
             <% if (favoriteArray.includes(singleCommittee.id)) { %>
-            <form method="POST" action="/favorites/<%=userFavorite.id%>/?_method=DELETE">>
+            <form class="pt-1" method="POST" action="/favorites/<%=userFavorite.id%>/?_method=DELETE">>
                 <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
                 <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
                 <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
@@ -68,7 +73,7 @@
             </form>
             <% } else {%>
             
-            <form method="POST" action="/favorites/add">
+            <form class="pt-1" method="POST" action="/favorites/add">
                 <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
                 <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
                 <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">

@@ -53,6 +53,10 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/committees', require('./controllers/committees'));
 app.use('/favorites', require('./controllers/favorites'));
 
+app.use((req, res, next) => {
+    res.status(404).render('no-result', {data: "The page you're looking for does not exist"});
+});
+
 // Add this below /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
     const { id, name, email } = req.user.get();
@@ -186,54 +190,54 @@ app.get('/search', function (req, res) {
 //         });
 // });
 
-// app.get('/test', function (req, res) {
-//     axios.get('https://api.congress.gov/v3/committee/house/hsed00?format=json' + API_KEY)
-//     .then (function (response) {
-//         res.json({ data: response.data}); 
-//     })
-//     .catch (function (error) {
-//         res.json({ error }); 
-//     })
-// })
+app.get('/test', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house/hsed00?format=json' + API_KEY)
+    .then (function (response) {
+        res.json({ data: response.data}); 
+    })
+    .catch (function (error) {
+        res.json({ error }); 
+    })
+})
 
-// app.get('/test1', function (req, res) {
-//     axios.get('https://api.congress.gov/v3/committee/house/hsed00/house-communication?format=json' + API_KEY)
-//         .then(function (response) {
-//             res.json({ data: response.data });
-//         })
-//         .catch(function (error) {
-//             res.json({ error });
-//         })
-// })
+app.get('/test1', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house/hsed00/house-communication?format=json' + API_KEY)
+        .then(function (response) {
+            res.json({ data: response.data });
+        })
+        .catch(function (error) {
+            res.json({ error });
+        })
+})
 
-// app.get('/test2', function (req, res) {
-//     axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
-//         .then(function (response) {
-//             res.json({ data: response.data });
-//         })
-//         .catch(function (error) {
-//             res.json({ error });
-//         })
-// })
+app.get('/test2', function (req, res) {
+    axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
+        .then(function (response) {
+            res.json({ data: response.data });
+        })
+        .catch(function (error) {
+            res.json({ error });
+        })
+})
 
-// app.get('/test3', function (req, res) {
-//     // let result = []; 
-//     let result; 
-//     axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
-//         .then(async function (response) {       
-//             let committees = response.data.committees;
-//             for (let i in committees) {
-//                 let committee = committees[i];
-//                 // result.push(committee.chamber, committee.name, committee.systemCode, committee.committeeTypeCode, committee.parent);
-//                 result = {chamber: committee.chamber, name: committee.name, systemCode: committee.systemCode, committeeTypeCode: committee.committeeTypeCode, parent: committee.parent, url: committee.url}; 
+app.get('/test3', function (req, res) {
+    // let result = []; 
+    let result; 
+    axios.get('https://api.congress.gov/v3/committee/house?format=json&offset=0&limit=250' + API_KEY)
+        .then(async function (response) {       
+            let committees = response.data.committees;
+            for (let i in committees) {
+                let committee = committees[i];
+                // result.push(committee.chamber, committee.name, committee.systemCode, committee.committeeTypeCode, committee.parent);
+                result = {chamber: committee.chamber, name: committee.name, systemCode: committee.systemCode, committeeTypeCode: committee.committeeTypeCode, parent: committee.parent, url: committee.url}; 
               
-//             }
-//             res.json({ data: result}); 
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         })
-// })
+            }
+            res.json({ data: result}); 
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+})
 
 
 const PORT = process.env.PORT || 3000;
