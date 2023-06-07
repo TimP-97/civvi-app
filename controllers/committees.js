@@ -1,6 +1,5 @@
 const express = require('express'); 
 const router = express.Router(); 
-const axios = require('axios'); 
 const { committee, favorite } = require('../models'); 
 
 router.get('/', function(req, res) {
@@ -69,40 +68,61 @@ router.get('/search', function (req, res) {
 })
 
 router.post('/search', function (req, res) {
-    let committeeArray = [];
-    console.log('REQUEST!!!!', req.body);
+    const committeeArray = [];
+    console.log('REQUEST!!!!', req.body.category);
+    console.log('???USER?????', req.user);
     const userId = req.user.dataValues.id;
     favorite.findAll({
         where: {
             userId: userId
         }
+    })
     .then(foundFavorite => {
         committee.findAll()
             .then(committee => {
-            // console.log(committee);
                 const cleaned_committee = committee.map(c => c.toJSON()); 
-                for (let i = 0; i < cleaned_committee.length; i++) {
-                let foundCommittee = cleaned_committee[i];
-                if (foundCommittee.name = req.body.item) {
-                    return res.render(`./committee/single-committee`, {singleCommittee: foundCommittee})
-                } else if (foundCommittee.chamber = req.body.item) {
-                    committeeArray.push(foundCommittee);
-                } else if (foundCommittee.id = req.body.item) {
-                    return res.render(`./committee/single-committee`, { singleCommittee: foundCommittee })
-                } else if (foundCommittee.systemCode = req.body.item) {
-                    return res.render(`./committee/single-committee`, { singleCommittee: foundCommittee })
-                } else if (foundCommittee.type = req.body.item) {
-                    committeeArray.push(foundCommittee);
-                } 
-            }
-            return res.render('./committee/house', {committees: committeeArray});
+                if (req.body.category === 'name') {
+                    for (let i = 0; i < cleaned_committee.length; i++) {
+                        let foundCommittee = cleaned_committee[i];
+                        if (foundCommittee.name === req.body.item) {
+                            return res.render('./committee/single-committee', {singleCommittee: foundCommittee, userFavorite: foundFavorite})
+                        }
+                    }
+                } else if (req.body.category === 'chamber') {
+                    for (let i = 0; i < cleaned_committee.length; i++) {
+                        let foundCommittee = cleaned_committee[i];
+                        if (foundCommittee.chamber === req.body.item) {
+                            committeeArray.push(foundCommittee);
+                        }
+                    }
+                } else if (req.body.category === 'committeeTypeCode') {
+                    for (let i = 0; i < cleaned_committee.length; i++) {
+                        let foundCommittee = cleaned_committee[i];
+                        if (foundCommittee.committeeTypeCode === req.body.item) {
+                            committeeArray.push(foundCommittee);
+                        }
+                    }
+                } else if (req.body.category === 'systemCode') {
+                    for (let i = 0; i < cleaned_committee.length; i++) {
+                        let foundCommittee = cleaned_committee[i];
+                        if (foundCommittee.systemCode === req.body.item) {
+                            return res.render('./committee/single-committee', { singleCommittee: foundCommittee, userFavorite: foundFavorite })
+                        }
+                    }
+                } else if (req.body.category === 'id') {
+                    for (let i = 0; i < cleaned_committee.length; i++) {
+                        let foundCommittee = cleaned_committee[i];
+                        if (foundCommittee.id === req.body.item) {
+                            return res.render('./committee/single-committee', { singleCommittee: foundCommittee, userFavorite: foundFavorite })
+                        }
+                    }
+                }
+            console.log('Committee array', committeeArray); 
+            return res.render('./committee/search-result', { committees: committeeArray, userFavorite: foundFavorite });
             })
             .catch(error => console.log("ERROR", error));
         })
-    })
-        .catch(error => {
-        console.log('Error', error);
-        })
+    .catch(error => {console.log('Error', error); })
 })
 
 router.get('/:id', function (req, res) {
@@ -126,7 +146,6 @@ router.get('/:id', function (req, res) {
     })
     .catch(error => {(console.log('error', error))})
 })
-
 
 router.get('/:systemCode', function (req, res) {
     committee.findOne({
