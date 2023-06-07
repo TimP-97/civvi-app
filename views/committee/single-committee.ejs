@@ -47,7 +47,7 @@
                 <div class="card-content">
                     <div class="content">
                         <% if (!singleCommittee.parent) { %>
-                        <p></p>
+                        <p>This committee does not have a parent.</p>
                         <% } else { %>
                             <p>Parent Committee</p>
                             <p><strong><%= singleCommittee.parent.name %></strong> | System Code: <%= singleCommittee.parent.systemCode %></p>
@@ -65,11 +65,9 @@
             
             <% if (favoriteArray.includes(singleCommittee.id)) { %>
             <form class="pt-1" method="POST" action="/favorites/<%=userFavorite.id%>/?_method=DELETE">>
-                <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
-                <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
-                <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
-                <input type="hidden" name="id" value="<%=singleCommittee.id %>">
-                <button type="submit" class="btn btn-primary">Remove from Favorite</button>
+                <form method="POST" action="/favorites/<%=favorite.id%>/?_method=DELETE">
+                    <input class="button" type="submit" value="Delete">
+                </form>
             </form>
             <% } else {%>
             

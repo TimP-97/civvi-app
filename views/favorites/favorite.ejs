@@ -42,7 +42,8 @@
                             <label for="committee"></label>
                             
                             <table class="table">
-                                <% if (userFavorite > 0) {%>
+                                <% console.log('User favorite??', userFavorite); %>
+                                <% if (userFavorite.length > 0) {%>
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -53,8 +54,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% userFavorite.forEach(function (favorite) { %>
-                                    <% console.log('Single User Favorite', favorite) %>
+                                    <% for (let i = 0; i < userFavorite.length; i++) { %>
+                                    <% const favorite = userFavorite[i].committee; %>
+                                    <% console.log('Single User Favorite', favorite.committee) %>
                                     <tr>
                                         <th scope="row"><%= userFavorite.length + 1 %></th>
                                         <td><a
@@ -69,7 +71,7 @@
                                                 <input class="button" type="submit" value="Delete">
                                             </form>
                                     </tr>
-                                    <% }) %>
+                                    <% } %>
                                     
 
                                 </tbody>

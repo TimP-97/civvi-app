@@ -1,5 +1,6 @@
 const express = require('express'); 
 const router = express.Router(); 
+const isLoggedIn = require('../middleware/isLoggedIn');
 const { committee, favorite } = require('../models'); 
 
 router.get('/', function(req, res) {
@@ -63,11 +64,11 @@ router.get('/joint', function (req, res) {
         })
 })
 
-router.get('/search', function (req, res) {
+router.get('/search', isLoggedIn, function (req, res) {
     return res.render('committee/search')
 })
 
-router.post('/search', function (req, res) {
+router.post('/search', isLoggedIn, function (req, res) {
     const committeeArray = [];
     console.log('REQUEST!!!!', req.body.category);
     console.log('???USER?????', req.user);
@@ -180,5 +181,6 @@ router.get('/:systemCode', function (req, res) {
         res.render('no-result', {data: 'Committee not found'});
     })
 })
+
 
 module.exports = router; 
