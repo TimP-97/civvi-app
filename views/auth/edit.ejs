@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <title>GoDocs documentation theme</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- plugins -->
+    <link rel="stylesheet" href="/plugins/bulma/bulma.min.css">
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+    <!-- Main Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+</head>
+<section class="section">
+    <div class="container">
+        <div class="columns is-desktop is-justify-content-center">
+            <div class="column is-8-desktop">
+                <div class="p-6 shadow rounded content">
+                    <h2 class="section-title">Edit Your Profile</h2>
+                    <% console.log('yoooooooooooooooo', user.id) %>
+                    <form method="POST" action="/auth/edit/<%= user.id %>/?_method=PUT">
+                        <div class="columns is-multiline">
+                            <div class="form-group column is-12">
+                                <label for="name">Name</label>
+                                <input value="<%= user.name %>" type="text" class="input" id="name"
+                                    name="name" placeholder="<%= user.name %>" required>
+                            </div>
+                            <div class="form-group column is-12">
+                                <label for="email">Email</label>
+                                <input value="<%= user.email%>" type="text" class="input" id="email" name="email"
+                                    placeholder="<%= user.email %>" required>
+                            </div>
+                            <div class="column is-12">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="/profile" class="btn btn-danger">Cancel</a>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- plugins -->
+<script src="plugins/jQuery/jquery.min.js"></script>
+<script src="plugins/masonry/masonry.min.js"></script>
+<script src="plugins/clipboard/clipboard.min.js"></script>
+<script src="plugins/match-height/jquery.matchHeight-min.js"></script>
+
+<!-- Main Script -->
+<script src="js/script.js"></script>
+</body>
+
+</html>

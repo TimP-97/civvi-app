@@ -1,7 +1,64 @@
-<h2>Profile Page</h2>
+<!DOCTYPE html>
 
-<h3>Welcome to your PROFILE</h3>
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
 
-<p>Id: <%= id %></p>
-<p>Name: <%= name %></p>
-<p>Email: <%= email %></p>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- plugins -->
+    <link rel="stylesheet" href="plugins/bulma/bulma.min.css">
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+    <!-- Main Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+<div class="columns">
+    <div class="column is-10 is-offset-1">
+        <h2>Profile Page</h2>
+        <h3>Welcome, <%= name %></h3>
+        <div class="card">
+            <div class="card-content">
+                <div class="content">
+                <p>User ID: <%= id %></p>
+                <p>Name: <%= name %></p>
+                <p>Email: <%= email %></p>
+                <a class="btn btn-sm btn-outline-primary ml-4" href="/auth/edit">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="plugins/jQuery/jquery.min.js"></script>
+<script src="plugins/masonry/masonry.min.js"></script>
+<script src="plugins/clipboard/clipboard.min.js"></script>
+<script src="plugins/match-height/jquery.matchHeight-min.js"></script>
+
+<!-- Main Script -->
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

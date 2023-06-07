@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <title>Favorites</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- plugins -->
+    <link rel="stylesheet" href="plugins/bulma/bulma.min.css">
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+    <!-- Main Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
 <div class="card text-center">
 
     <div class="card-image">
@@ -6,7 +38,7 @@
             <div class="form-group column is-12">
                 <div class="columns is-multiline">
 
-                    <div class="form-group column is-12">
+                    <div class="form-group column is-12 is-justify-content-center">
                         <label for="committee"></label>
 
                         <table class="table">
@@ -25,7 +57,7 @@
                                 <% console.log('Single User Favorite', singleUserFavorite) %>
                                 <tr>
                                     <th scope="row"><%= i+1 %></th>
-                                    <td><%= singleUserFavorite.name %></td>
+                                    <td><a href="./committees/<%=singleUserFavorite.id%>"><%= singleUserFavorite.name %></a></td>
                                     <td><%= singleUserFavorite.chamber %></td>
                                     <td><%= singleUserFavorite.committeeTypeCode %></td>
                                     <td>
@@ -55,3 +87,15 @@
     </div>
 
 </div>
+
+<script src="plugins/jQuery/jquery.min.js"></script>
+<script src="plugins/masonry/masonry.min.js"></script>
+<script src="plugins/clipboard/clipboard.min.js"></script>
+<script src="plugins/match-height/jquery.matchHeight-min.js"></script>
+
+<!-- Main Script -->
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

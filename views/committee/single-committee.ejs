@@ -53,11 +53,13 @@
 
             <% const favoriteArray = [] %>
             <% if (userFavorite) { for( let x = 0; x < userFavorite.length; x++ ) { %>
-            <% favoriteArray.push(userFavorite[x].id) %>
+            <% favoriteArray.push(userFavorite[x].committeeId) %>
+            <% console.log(favoriteArray) %>
+            <% console.log('id???', singleCommittee.id) %>
             <% } %>
             
             <% if (favoriteArray.includes(singleCommittee.id)) { %>
-            <form method="DELTE" action="/favorites/<%= singleCommittee.id%>">
+            <form method="POST" action="/favorites/<%=userFavorite.id%>/?_method=DELETE">>
                 <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
                 <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
                 <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
