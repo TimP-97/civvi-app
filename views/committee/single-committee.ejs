@@ -31,15 +31,49 @@
 
 <body>
 
-<div class="column is-8-desktop is-12-tablet">
+<div class="column is-full">
     <div class="px-4">
         <h2 class="mb-4 has-text-weight-medium"><%= singleCommittee.name %></h2>
         <div class="content">
 
 
             <blockquote>
-                <p></p>
+                <p><%= singleCommittee.chamber %></p>
             </blockquote>
+            <div class="mt-5">
+                <div class="badge removed"><%= singleCommittee.committeeTypeCode %></div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="content">
+                        <p><%= singleCommittee.systemCode %></p>
+                    </div>
+                </div>
+            </div>
+
+            <% const favoriteArray = [] %>
+            <% if (userFavorite) { for( let x = 0; x < userFavorite.length; x++ ) { %>
+            <% favoriteArray.push(userFavorite[x].id) %>
+            <% } %>
+            
+            <% if (favoriteArray.includes(singleCommittee.id)) { %>
+            <form method="DELTE" action="/favorites/<%= singleCommittee.id%>">
+                <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
+                <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
+                <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
+                <input type="hidden" name="id" value="<%=singleCommittee.id %>">
+                <button type="submit" class="btn btn-primary">Remove from Favorite</button>
+            </form>
+            <% } else {%>
+            
+            <form method="POST" action="/favorites/add">
+                <input type="hidden" name="committeeName" value="<%=singleCommittee.name %>">
+                <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
+                <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
+                <input type="hidden" name="id" value="<%=singleCommittee.id %>">
+                <button type="submit" class="btn btn-primary">Add to Favorite</button>
+            </form>
+            <% }} %>
 
 
         </div>

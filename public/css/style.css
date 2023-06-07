@@ -43,6 +43,14 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
+navbar-link:hover {
+  color: #9A57f9; 
+}
+
+navbar-item:hover {
+  color: #9A57f9;
+}
+
 h1, .h1 {
   font-size: 50px;
   font-weight: 800;
@@ -606,7 +614,7 @@ textarea {
   padding: 35px;
 }
 .card-icon {
-  background: #9A57f9;
+  background: #C8A3FB;
   color: #fff;
   height: 55px;
   width: 60px;
@@ -640,7 +648,7 @@ textarea {
   line-height: 42px;
   text-align: center;
   color: #fff;
-  background: #9A57f9;
+  background: #C8A3FB;
   border-radius: 6px;
 }
 

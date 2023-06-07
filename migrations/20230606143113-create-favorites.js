@@ -12,17 +12,8 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      chamber: {
-        type: Sequelize.STRING
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      systemCode: {
-        type: Sequelize.STRING
-      },
-      committeeTypeCode: {
-        type: Sequelize.STRING
+      committeeId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <title>GoDocs documentation theme</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- plugins -->
+    <link rel="stylesheet" href="/plugins/bulma/bulma.min.css">
+    <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+    <!-- Main Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-desktop is-justify-content-center">
+                <div class="column is-8-desktop">
+                    <div class="p-6 shadow rounded content">
+                        <h2 class="section-title">Search Committees</h2>
+                        <form method="POST" action="/committees/search">
+                            <div class="columns is-multiline">
+                                <div class="form-group column is-12">
+                                    <label for="category">Search by category</label>
+                                    <select id="category" class="input custom-select" name="category" required>
+                                        <option selected disabled>Choose Your Category</option>
+                                        <option value="name">Committee Name</option>
+                                        <option value="chamber">Chamber</option>
+                                        <option value="committeeTypeCode">Type</option>
+                                        <option value="systemCode">System Code</option>
+                                        <option value="id">Committee ID</option>
+                                    </select>
+                                </div>
+                                <div class="form-group column is-12">
+                                    <label for="item">Item</label>
+                                    <input type="text" class="input" id="item" name="item"
+                                        placeholder="Search for a committee" required>
+                                </div>
+                                <div class="column is-12">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- plugins -->
+    <script src="plugins/jQuery/jquery.min.js"></script>
+    <script src="plugins/masonry/masonry.min.js"></script>
+    <script src="plugins/clipboard/clipboard.min.js"></script>
+    <script src="plugins/match-height/jquery.matchHeight-min.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>GoDocs documentation theme</title>
+    <title>Civvi - Search</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,7 +32,7 @@
 
 <div class="box">
 <p>
-<form method=”get” target=”_top” role=”search” action=”https://congress.gov/search” style="align-items: center;">
+<form method=”get” target=”_blank” role=”search” action=”https://congress.gov/search” style="align-items: center;">
     <div id=”search-wrapper” class=”search_wrapper”>
         <div class=”search_formats”><select id=”search-format” name=”search-source”>
                 <optgroup label=”Search by Congress”>
@@ -46,12 +46,15 @@
                     <option value=”members”>Members</option>
                     <option value=”nominations”>Nominations</option>
                 </optgroup>
-            </select><input id=”search” type=”text” class=”locsuggest” name=”q” placeholder=Search><button class=”search_submit” id=”search-submit”
-                type=”submit”>GO</button></div>
+            </select>
+            <input id=”search” type=”text” class=”locsuggest” name=”q” placeholder=Search>
+            <button class=”search_submit” id=”search-submit” onclick="window.location.href='https://congress.gov/search'" type=”submit”>GO</button>
+        </div>
     </div>
 </form>
 </p>
 </div>
+
 <!-- plugins -->
 <script src="plugins/jQuery/jquery.min.js"></script>
 <script src="plugins/masonry/masonry.min.js"></script>

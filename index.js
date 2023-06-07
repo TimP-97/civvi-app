@@ -51,6 +51,7 @@ app.get('/', function (req, res) {
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/committees', require('./controllers/committees'));
+app.use('/favorites', require('./controllers/favorites'));
 
 // Add this below /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
@@ -248,4 +249,3 @@ module.exports = {
     axios
 };
 
-// sequelize model:create --name committee --attributes chamber:string,name:string,systemCode:string,committeeTypeCode:string,bills:string,billsCount:integer,history:array,communications:array,parent:array

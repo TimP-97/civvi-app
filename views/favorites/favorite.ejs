@@ -1,0 +1,57 @@
+<div class="card text-center">
+
+    <div class="card-image">
+        <figure class="image ">
+
+            <div class="form-group column is-12">
+                <div class="columns is-multiline">
+
+                    <div class="form-group column is-12">
+                        <label for="committee"></label>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Chamber</th>
+                                    <th scope="col">Committee Type</th>
+                                    <th scope="col">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for( let i = 0; i < userFavorite.length; i++ ) { %>
+                                <% let singleUserFavorite = userFavorite[i] %>
+                                <% console.log('Single User Favorite', singleUserFavorite) %>
+                                <tr>
+                                    <th scope="row"><%= i+1 %></th>
+                                    <td><%= singleUserFavorite.name %></td>
+                                    <td><%= singleUserFavorite.chamber %></td>
+                                    <td><%= singleUserFavorite.committeeTypeCode %></td>
+                                    <td>
+
+                                        <form method="POST"
+                                            action="/favorites/<%=singleUserFavorite.id%>/?_method=DELETE">
+                                            <input class="button" type="submit" value="Delete">
+                                        </form>
+
+
+
+                                    </td>
+                                </tr>
+                                <% } %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </figure>
+
+    </div>
+
+</div>

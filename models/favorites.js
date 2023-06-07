@@ -11,17 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.favorite.belongsTo(models.user);
+      models.favorite.belongsTo(models.committee);
     }
   }
   favorite.init({
     userId: DataTypes.INTEGER,
-    chamber: DataTypes.STRING,
-    name: DataTypes.STRING,
-    systemCode: DataTypes.STRING,
-    committeeTypeCode: DataTypes.STRING
+    committeeId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'favorite',
+    tableName: 'favorites'
   });
   return favorite;
 };
