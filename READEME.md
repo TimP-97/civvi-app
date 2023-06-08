@@ -144,5 +144,14 @@ router.get('/', function(req, res) {
 })
 ```
 
-Most of the routes are stores as controllers and then imported into the index.js file (the main server file)
+Most of the routes are stored within controllers folders and then imported into the index.js file (the main server file). 
+
+### Stretch Goals 
+- [ ] Add bill data with the same functionality as current committee data 
+- [ ] Add congresspeople data with the same functionality as current committee data 
+- [ ] Link all data together through the "Following" page 
+- [ ] Link relevant data to respective pages (IE: Show which bills are moving through which committee and by whom on a single committee page)
+- [ ] Add an input field that records notes users want to write regarding the various data 
+- [ ] Add more FAQ items 
+- [ ] Allow users to easily send an email to the congress members of their choice 
 
