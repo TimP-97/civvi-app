@@ -4,7 +4,7 @@
 
 ![apppreview](https://i.imgur.com/gVNHBut.png)
 
-Civvi (Civilian) is an app that lets you search congressional committees and save them to an authentcated user. 
+Civvi (as in civilian) is an app that lets you search congressional committees and save them to an authentcated user. The central conceit of Civvi is to produce a more engaged and informed electorate who take a proactive approach in the democratic process.
 
 ***
 
@@ -144,7 +144,55 @@ router.get('/', function(req, res) {
 })
 ```
 
-Most of the routes are stored within controllers folders and then imported into the index.js file (the main server file). 
+Most of the routes are stored within controllers folders and then imported into the index.js file (the main server file). The controller files hold CRUD functions, like create or delete. 
+
+```
+router.post('/add', isLoggedIn, async (req, res) => {
+    const committeeId = parseInt(req.body.id);
+    const userId = req.user.dataValues.id;
+    try {
+        const fav = await favorite.findOne({
+            where: {
+                userId: userId,
+                committeeId: committeeId
+            }
+        });
+
+        if (fav) {
+            req.flash('error', 'Committee has already been added to your favorites');
+        } else {
+            await favorite.create({
+                userId: userId,
+                committeeId: committeeId
+            });
+        }
+    } catch (error) {
+        console.error('Error adding committee to favorites:', error);
+    }
+
+   return res.redirect('/favorites');
+});
+
+
+router.delete('/:id', isLoggedIn, async (req, res) => {
+    const favoriteId = req.params.id;
+
+    try {
+        await favorite.destroy({ where: { committeeId: favoriteId } });
+        res.redirect('/favorites');
+    } catch (error) {
+        console.error('Error deleting favorite:', error);
+        res.redirect('/favorites');
+    }
+});
+```
+###### Above code pulled from controllers/favorites
+
+### Blockers 
+ - The biggest blocker I had was learning how to to manipulate the data coming from the API. There were many unique and trying instances where I had to add qualifiers in order to get the data to seed and render properly. 
+ - Also, I needed to seed the data because in order to get everything that I have now, I had too nest three different API calls. In the first API call, there was a URL with more relevant information that also had its own URL with more relevant information. 
+ - The issue with manipulating data persisted among all aspects of the project sans auth. So, there were many little blockers along the way. 
+
 
 ### Stretch Goals 
 - [ ] Add bill data with the same functionality as current committee data 

@@ -52,19 +52,6 @@ router.post('/add', isLoggedIn, async (req, res) => {
 });
 
 
-// Delete from favorites route
-// router.delete('/:id', isLoggedIn, async (req, res) => {
-//     const favoriteId = req.params.id;
-
-//     try {
-//         await favorite.destroy({ where: { committeeId: favoriteId } });
-//         res.redirect('/favorites');
-//     } catch (error) {
-//         console.error('Error deleting favorite:', error);
-//         res.redirect('/favorites');
-//     }
-// });
-
 router.delete('/:id', isLoggedIn, async (req, res) => {
     const favoriteId = req.params.id;
 
