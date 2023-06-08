@@ -144,3 +144,5 @@ router.get('/', function(req, res) {
 })
 ```
 
+Most of the routes are stores as controllers and then imported into the index.js file (the main server file)
+
