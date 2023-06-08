@@ -41,7 +41,19 @@
                 <p><%= singleCommittee.chamber %></p>
             </blockquote>
             <div class="mt-5">
+                <% if (singleCommittee.committeeTypeCode === "Standing") { %>
                 <div class="badge removed">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } else if (singleCommittee.committeeTypeCode === "Joint") {%>
+                <div class="badge changed">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } else if (singleCommittee.committeeTypeCode === "Select") {%>
+                <div class="badge depricated">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } else if (singleCommittee.committeeTypeCode === "Commission or Caucus") {%>
+                <div class="badge security">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } else if (singleCommittee.committeeTypeCode === "other") {%>
+                <div class="badge unreleased">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } else {%>
+                <div class="badge fixed">Committee Type: <%= singleCommittee.committeeTypeCode %> | System Code: <%= singleCommittee.systemCode %></div>
+                <% } %>
             </div>
             <div class="card">
                 <div class="card-content">
@@ -95,3 +107,5 @@
         </body>
         
         </html>
+
+     

@@ -70,7 +70,19 @@
     
                             <p><strong><a href="/committees/<%= committee.id %>"><%= committee.name %></a></strong></p>
                             <div class="mt-5">
-
+                                <% if (committee.committeeTypeCode === "Standing") { %>
+                                <div class="badge removed">Type: <%= committee.committeeTypeCode %></div>
+                                <% } else if (committee.committeeTypeCode === "Joint") {%>
+                                <div class="badge changed">Type: <%= committee.committeeTypeCode %></div>
+                                <% } else if (committee.committeeTypeCode === "Select") {%>
+                                <div class="badge depricated">Type: <%= committee.committeeTypeCode %></div>
+                                <% } else if (committee.committeeTypeCode === "Commission or Caucus") {%>
+                                <div class="badge security">Type: <%= committee.committeeTypeCode %></div>
+                                <% } else if (committee.committeeTypeCode === "Other") {%>
+                                <div class="badge unreleased">Type: <%= committee.committeeTypeCode %></div>
+                                <% } else {%>
+                                <div class="badge fixed">Type: <%= committee.committeeTypeCode %></div>
+                                <% } %>
                             </div>
                             <hr>
                             <% } %>
