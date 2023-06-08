@@ -64,10 +64,8 @@
             <% } %>
             
             <% if (favoriteArray.includes(singleCommittee.id)) { %>
-            <form class="pt-1" method="POST" action="/favorites/<%=userFavorite.id%>/?_method=DELETE">>
-                <form method="POST" action="/favorites/<%=favorite.id%>/?_method=DELETE">
-                    <input class="button" type="submit" value="Delete">
-                </form>
+            <form class='pt-1' method="POST" action="/favorites/<%=singleCommittee.id%>/?_method=DELETE">
+                <input class="button" type="submit" value="Delete">
             </form>
             <% } else {%>
             
@@ -76,7 +74,7 @@
                 <input type="hidden" name="committeeChamber" value="<%=singleCommittee.chamber %>">
                 <input type="hidden" name="committeeTypeCode" value="<%=singleCommittee.committeeTypeCode %>">
                 <input type="hidden" name="id" value="<%=singleCommittee.id %>">
-                <button type="submit" class="btn btn-primary">Add to Favorite</button>
+                <button type="submit" class="btn btn-primary">Follow Committee</button>
             </form>
             <% }} %>
 

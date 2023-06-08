@@ -54,34 +54,18 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/committees', require('./controllers/committees'));
 app.use('/favorites', require('./controllers/favorites'));
 
-app.use((req, res, next) => {
-    res.status(404).render('no-result', {data: "The page you're looking for does not exist"});
-});
-
 // Add this below /auth controllers
 app.get('/profile', isLoggedIn, (req, res) => {
     const { id, name, email } = req.user.get();
     res.render('profile', { id, name, email });
 });
-
+app.use((req, res, next) => {
+    res.status(404).render('no-result', { data: "The page you're looking for does not exist" });
+});
 app.get('/search', function (req, res) {
     res.render('search');
 })
 
-app.get('/delete-committee', function (req, res) {
-    committee.destroy({
-        where: {
-            name: 'Mining and Natural Resources Subcommittee'
-        }
-    })
-        .then((deletedRows) => {
-            console.log(`${deletedRows} row(s) deleted successfully.`);
-        })
-        .catch((error) => {
-            console.error('Error deleting rows:', error);
-        });
-
-})
 
 const PORT = process.env.PORT || 3000;
 

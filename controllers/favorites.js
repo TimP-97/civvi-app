@@ -5,38 +5,6 @@ const { committee, favorite, user } = require('../models');
 const { restart } = require('nodemon');
 
 // Favorites page route
-// router.get('/', isLoggedIn, async (req, res) => {
-//     try {
-//         const userId = req.user.dataValues.id;
-//         const userFavorites = await favorite.findAll({
-//             where: {
-//                 userId: userId
-//             }
-//         });
-//         for (const userFavorite of userFavorites) {
-//             try {
-//                 const committeeId = userFavorite.committeeId;
-//                 committee.findAll({
-//                     where: {
-//                         id: committeeId
-//                     }
-//                 })
-//                     .then(foundCommittee => {
-//                         const cleaned_committee = foundCommittee.map(c => c.toJSON())
-//                         return res.render('./favorites/favorite', { userFavorite: cleaned_committee });
-//                     })
-//                     .catch(error => { console.log('ERROR', error) })
-//             } catch (error) {
-//                 console.error('ERROR:', error);
-//             }
-//         }
-
-//     } catch (error) {
-//         console.error('Error retrieving user favorites:', error);
-//         res.render('no-result', { data: "You don't have any favorites" });
-//     }
-// });
-
 router.get('/', isLoggedIn, async (req, res) => {
     try {
         const userId = req.user.dataValues.id;
@@ -52,7 +20,7 @@ router.get('/', isLoggedIn, async (req, res) => {
         res.render('./favorites/favorite', { userFavorite: cleanedUserFavorites});
     } catch (error) {
         console.error('Error retrieving user favorites:', error);
-        res.render('no-result', { data: "You don't have any favorites" });
+        res.render('./favorites/favorite', { userFavorite: '' });
     }
 });
 
