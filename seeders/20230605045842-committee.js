@@ -14,7 +14,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await axios.get('https://api.congress.gov/v3/committee/joint?format=json&offset=0&limit=250' + API_KEY)
+    await axios.get('https://api.congress.gov/v3/committee/joint?format=json&offset=0&limit=250&api_key=g34wvh7cMZqiTCkY4n3g39Se8vvZBrfTLC3lEg9I')
       .then(async function (response) { 
         const committees = response.data.committees.map(c => {
           const result = {
