@@ -7,7 +7,6 @@
     "test": "supertest",
     "start": "node index.js",
     "dev": "nodemon"
-    
   },
   "repository": {
     "type": "git",
