@@ -1,6 +1,5 @@
 'use strict';
 const axios = require('axios');
-API_KEY = process.env.API_KEY;
 
 
 /** @type {import('sequelize-cli').Migration} */
